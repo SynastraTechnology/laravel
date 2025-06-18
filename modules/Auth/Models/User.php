@@ -10,7 +10,7 @@ class User extends Authenticatable
     protected $keyType = 'string';
 
     protected $fillable = [
-        'id', 'name', 'email', 'password', 'birthdate'
+        'id', 'name', 'email', 'password', 'birthdate', 'profile_photo'
     ];
 
     protected static function booted()

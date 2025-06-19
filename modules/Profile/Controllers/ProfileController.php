@@ -21,23 +21,25 @@ class ProfileController extends Controller
 
         if ($request->hasFile('profile_photo')) {
             $file = $request->file('profile_photo');
-            $path = $file->getRealPath();
             $ext = $file->extension();
             $filename = "user_{$user->id}_" . time() . ".{$ext}";
+
             if ($user->profile_photo) {
-                Http::withHeaders([
+                $deleteResponse = Http::withHeaders([
                     'apikey' => config('services.supabase.key'),
                     'Authorization' => 'Bearer ' . config('services.supabase.key'),
                 ])->delete(
-                        config('services.supabase.url')
-                        . "/storage/v1/object/public/"
-                        . config('services.supabase.bucket')
-                        . "/" . basename($user->profile_photo)
-                    );
-            }
+                    config('services.supabase.url')
+                    . "/storage/v1/object/"
+                    . config('services.supabase.bucket')
+                    . "/" . basename($user->profile_photo)
+                );
 
-            $file = $request->file('profile_photo');
-            $filename = "user_{$user->id}_" . time() . "." . $file->extension();
+                if ($deleteResponse->failed()) {
+                    // Optionally log the failure or handle it as needed
+                    // For now, just continue without interrupting the update
+                }
+            }
 
             $response = Http::withHeaders([
                 'apikey' => config('services.supabase.key'),
@@ -48,16 +50,6 @@ class ProfileController extends Controller
                     config('services.supabase.url')
                     . "/storage/v1/object/" . config('services.supabase.bucket') . "/{$filename}"
                 );
-
-            if ($response->failed()) {
-                return back()->withErrors(['profile_photo' => 'Gagal upload avatar']);
-            }
-
-            $user->profile_photo = config('services.supabase.url')
-                . "/storage/v1/object/public/"
-                . config('services.supabase.bucket')
-                . "/{$filename}";
-
 
             if ($response->failed()) {
                 return back()->withErrors(['profile_photo' => 'Gagal upload avatar']);

@@ -14,7 +14,6 @@ class RegisterController extends Controller
 
     public function register(Request $request)
 {
-    \Log::info('Reached RegisterController@register', $request->all());
     $data = $request->validate([
         'name'                  => ['required','string','max:255'],
         'email'                 => ['required','email','max:255','unique:users'],
@@ -22,7 +21,6 @@ class RegisterController extends Controller
         'birthdate'             => ['required','date'],
     ]);
 
-    // Dengan model di atas, password otomatis bcrypt & id UUID otomatis
     $user = User::create([
         'name'       => $data['name'],
         'email'      => $data['email'],

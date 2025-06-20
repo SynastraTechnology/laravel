@@ -16,7 +16,7 @@
                 <x-dialog>
                     <div class="relative w-fit mx-auto group">
                         <x-avatar class="mx-auto w-48 h-48 rounded-full overflow-hidden">
-                            <x-avatar.image id="avatarPreview" class="object-cover w-full h-full"
+                            <x-avatar.image id="avatarPreviewTrigger" class="object-cover w-full h-full"
                                 src="{{ $user->profile_photo ?: asset('assets/user.png') }}" alt="Avatar" />
                         </x-avatar>
                         <x-dialog.trigger>
@@ -41,11 +41,11 @@
                                         src="{{ $user->profile_photo ?: asset('assets/user.png') }}" alt="Avatar" />
                                 </x-avatar>
 
-                                <x-input placeholder="Foto Profil" name="profile_photo" type="file" />
+                                <x-input placeholder="Foto Profil" name="profile_photo" type="file"
+                                    id="profilePhotoInput" />
                             </div>
 
                             <x-dialog.footer>
-                                {{-- <x-dialog.close variant="default">Save changes</x-dialog.close> --}}
                                 <x-button type="submit">Save changes</x-button>
                             </x-dialog.footer>
 
@@ -64,24 +64,30 @@
 
         <form method="POST" action="{{ route('logout') }}" class="mt-4">
             @csrf
-            <x-button variant="outline" type="submit" class="w-full">Logout</x-button>
+            <x-button variant="outline" type="submit" class="w-full cursor-pointer">Logout</x-button>
         </form>
     </div>
 @endsection
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const input = document.querySelector('input[name="profile_photo"]');
-        const previewImage = document.querySelector('#avatarPreview');
+        const input = document.querySelector('#profilePhotoInput');
+        const previewImageTrigger = document.querySelector('#avatarPreviewTrigger');
+        const previewImageDialog = document.querySelector('#avatarPreview');
 
-        input.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file && previewImage) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    previewImage.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
+        if (input && previewImageTrigger) {
+            input.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImageTrigger.src = e.target.result;
+                        if (previewImageDialog) {
+                            previewImageDialog.src = e.target.result;
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
     });
 </script>

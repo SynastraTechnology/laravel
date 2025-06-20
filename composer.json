@@ -10,9 +10,11 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "guzzlehttp/guzzle": "^7.9",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
-        "luvi-ui/laravel-luvi": "^0.6.0"
+        "luvi-ui/laravel-luvi": "^0.6.0",
+        "mallardduck/blade-lucide-icons": "^1.23"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -66,7 +68,8 @@
         "laravel": {
             "dont-discover": [],
             "providers": [
-                "Modules\\Auth\\AuthServiceProvider"
+                "Modules\\Auth\\AuthServiceProvider",
+                "Modules\\Profiles\\AuthServiceProvider"
             ]
         }
     },

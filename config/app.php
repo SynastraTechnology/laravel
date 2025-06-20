@@ -166,7 +166,7 @@ return [
          * Synastra Starter‑Kit Modules
          */
         Modules\Auth\AuthServiceProvider::class,
-        // nanti tambahkan Modules\Profile\ProfileServiceProvider::class, dll.
+        Modules\Profile\ProfileServiceProvider::class,
     ],
 
 ];

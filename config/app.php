@@ -167,6 +167,7 @@ return [
          */
         Modules\Auth\AuthServiceProvider::class,
         Modules\Profile\ProfileServiceProvider::class,
+        Modules\Dashboard\DashboardServiceProvider::class,
     ],
 
 ];

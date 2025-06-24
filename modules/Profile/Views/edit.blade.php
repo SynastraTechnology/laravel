@@ -16,7 +16,7 @@
                 <x-dialog>
                     <div class="relative w-fit mx-auto group">
                         <x-avatar class="mx-auto w-48 h-48 rounded-full overflow-hidden">
-                            <x-avatar.image id="avatarPreviewTrigger" class="object-cover w-full h-full"
+                            <x-avatar.image class="object-cover w-full h-full"
                                 src="{{ $user->profile_photo ?: asset('assets/user.png') }}" alt="Avatar" />
                         </x-avatar>
                         <x-dialog.trigger>
@@ -71,19 +71,15 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const input = document.querySelector('#profilePhotoInput');
-        const previewImageTrigger = document.querySelector('#avatarPreviewTrigger');
         const previewImageDialog = document.querySelector('#avatarPreview');
 
-        if (input && previewImageTrigger) {
+        if (input && previewImageDialog) {
             input.addEventListener('change', function(e) {
                 const file = e.target.files[0];
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = function(e) {
-                        previewImageTrigger.src = e.target.result;
-                        if (previewImageDialog) {
-                            previewImageDialog.src = e.target.result;
-                        }
+                        previewImageDialog.src = e.target.result;
                     };
                     reader.readAsDataURL(file);
                 }

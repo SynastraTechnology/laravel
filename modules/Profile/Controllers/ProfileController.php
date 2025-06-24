@@ -69,6 +69,6 @@ class ProfileController extends Controller
         $user->save();
 
         return redirect()->route('profile.edit')
-            ->with('status', 'Profile updated successfully.');
+            ->with('status', 'Profile updated success.');
     }
 }

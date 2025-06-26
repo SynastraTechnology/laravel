@@ -5,7 +5,7 @@
 @section('content')
     {{-- Header Halaman --}}
     <div class="mb-6">
-        <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">
+        <h1 class="text-2xl font-semibold text-gray-800">
             Dashboard
         </h1>
     </div>

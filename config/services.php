@@ -38,5 +38,6 @@ return [
         'url' => env('SUPABASE_URL'),
         'key' => env('SUPABASE_SERVICE_KEY'),
         'bucket' => env('SUPABASE_BUCKET', 'avatars'),
+        'products_bucket' => env('SUPABASE_PRODUCTS_BUCKET', 'products'),
     ],
 ];

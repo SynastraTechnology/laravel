@@ -169,6 +169,8 @@ return [
         Modules\Profile\ProfileServiceProvider::class,
         Modules\Dashboard\DashboardServiceProvider::class,
         Modules\Posts\PostsServiceProvider::class,
+        Modules\Products\ProductServiceProvider::class,
+        Modules\PixelArt\PixelArtServiceProvider::class,
     ],
 
 ];
